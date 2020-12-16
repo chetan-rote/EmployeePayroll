@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             textError.textContent = message;
         }
     });
-    
+
     const salary = document.querySelector("#salary");
     const output = document.querySelector(".salary-output")
     output.textContent = salary.value;
@@ -23,17 +23,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-function save(){
-    try{
+function save() {
+    try {
         let employeePayroll = createEmployeePayroll();
     }
-    catch(message){
+    catch (message) {
         alert(message);
         return;
     }
 }
 
-function createEmployeePayroll(){
+let employeePayrollArray = [];
+function createEmployeePayroll() {
     let employeePayroll = new EmployeePayroll();
     employeePayroll.name = getInputValueById('#name');
     employeePayroll.profilePic = getSelectedValues('[name = profilePic]').pop();
@@ -43,21 +44,23 @@ function createEmployeePayroll(){
     employeePayroll.note = getInputValueById('#note');
     let date = getInputValueById('#year') + "-" + getInputValueById('#month') + "-" + getInputValueById('#day');
     employeePayroll.startDate = new Date(date);
-    alert(employeePayroll.toString());
+    employeePayrollArray.push(employeePayroll);
+    alert("Your details are successfully added.")
+    alert(employeePayrollArray);
     return employeePayroll;
 }
 
-function getSelectedValues(propertyValue){
-    let allItems = document.querySelector(propertyValue);
+function getSelectedValues(propertyValue) {
+    let allItems = document.querySelectorAll(propertyValue);
     let selectedItems = [];
     allItems.forEach(item => {
-        if(item.checked)
-        selectedItems.push(item.value);
+        if (item.checked)
+            selectedItems.push(item.value);
     });
     return selectedItems;
 }
 
-function getInputValueById(id){
+function getInputValueById(id) {
     let value = document.querySelector(id).value;
     return value;
 }
